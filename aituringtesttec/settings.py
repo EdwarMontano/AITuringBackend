@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rf#j_7whj-pcm*_p6wrh$-n0%)4ov4sgkbw@^!=-8jz73v=@($'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -90,22 +90,13 @@ WSGI_APPLICATION = 'aituringtesttec.wsgi.application'
 import dj_database_url
 from decouple import config
 
-# DATABASES ={
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL')
-#     )
-# }
-
 DATABASES ={
-    'default': {
-        'ENGINE':"django.db.backends.postgresql_psycopg2",
-        'NAME' : 'aituring',
-        'USER': 'openpg',
-        'PASSWORD': 'openpgpwd',
-        'HOST': 'localhost',
-        'PORT':'',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
