@@ -1,0 +1,1 @@
+web: gunicorn aituringtesttec.wsgi --log-file -
