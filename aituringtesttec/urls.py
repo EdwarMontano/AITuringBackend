@@ -21,13 +21,19 @@ from django.conf.urls.static import static
 
 
 from aituringtesttec import views as local_views
-# from post import views as post_views
+from clientes import views as clientes_views
+
 from datetime import datetime
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', local_views.helloAlien),
-    path('sorted/', local_views.sortedNumbers),
-    path('greeting/<int:age>/<str:name>/', local_views.greeting),
-    # path('post/', post_views.postPicture),
-] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+    # path('/', local_views.home_view),
+
+    path('hello/', local_views.helloAlien, name= 'helloAlien'),
+    path('sorted/', local_views.sortedNumbers, name= 'sorted'),
+    path('greeting/<int:age>/<str:name>/', local_views.greeting, name= 'hi'),
+
+    path('clientes/', clientes_views.list_clientes, name= 'feed'),
+    path('clientes/login/',clientes_views.login_view, name= 'login')
+] +  static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+# static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

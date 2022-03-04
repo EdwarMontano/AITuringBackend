@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.shortcuts import render
 # Utilities
 from datetime import datetime
 from itertools import chain
@@ -12,16 +13,14 @@ def helloAlien(request):
 def sortedNumbers(request):
     numbers = request.GET['numbers'].split(',')
     numbers = [int(n) for n in numbers]
-    numbers.sort()
-    cosas = request.GET['cosas']
-    d1 = {"Nombre": "Sara","Edad": 27,"Documento": 1003882,'cursos': ['Python','Django','JavaScript']}
-    d1 = {**d1, "number": numbers, "cosas":cosas}
-    d2 = {"Nombre": "Tara","Edad": 28,"Documento": 1003883}
-    dict3 = defaultdict(list)
-    for k, v in chain(d1.items(), d2.items()):       
-        dict3[k].append(v)
+    intSorted=sorted(numbers)
+    data = {
+        'status':'ok',
+        'numbers': intSorted
+    }
+    
     # import pdb; pdb.set_trace()
-    return JsonResponse(dict3)
+    return JsonResponse(data)
 
 def greeting(request,age,name):
     if age >= 18:
@@ -29,3 +28,4 @@ def greeting(request,age,name):
     else:
         message = 'Sorry {0}, you are not allowed here'.format(name)
     return HttpResponse(message)
+
