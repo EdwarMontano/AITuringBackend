@@ -19,6 +19,15 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+from aituringtesttec import views as local_views
+# from post import views as post_views
+from datetime import datetime
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('hello/', local_views.helloAlien),
+    path('sorted/', local_views.sortedNumbers),
+    path('greeting/<int:age>/<str:name>/', local_views.greeting),
+    # path('post/', post_views.postPicture),
 ] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
