@@ -12,6 +12,7 @@ urlpatterns = [
     path('eliminarCliente/<int:pk>',  login_required(EliminarCliente.as_view()) , name = 'eliminarCliente'),
 
     path('graphClientes/',  graficasCliente, name = 'graphcliente'),
-    path('poblarClientes/', crearClienteMasivo , name = 'populationCliente')
+    path('poblarClientes/', crearClienteMasivo , name = 'populationCliente'),
+    path('exportClientes/', exportDataAllCliente , name = 'export')
     
 ] 

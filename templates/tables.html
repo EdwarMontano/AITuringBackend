@@ -34,7 +34,7 @@
                 
                 
                 <div class="container-fluid">
-                    {% if clientes %}
+                    {% if clientesjson %}
                     
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tabla de clientes</h1>
@@ -68,13 +68,14 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {% for cliente in clientes %}
+                                        {% for cliente in clientesjson %}
                                             
                                         <tr>
-                                            <td>{{cliente}}</td>
-                                            <td>{{cliente.categoria_id}}</td>
-                                            <td>{{cliente.pais_id}}</td>
-                                            <td>{{cliente.city_id}}</td>                                           
+                                            <td>{{cliente.fields.name_cliente}}</td>
+                                            <td>{{cliente.fields.categoria}}</td>
+                                            <td>{{cliente.fields.pais}}</td>
+                                            <td>{{cliente.fields.city}}</td>  
+                                            <!-- {'name_cliente': 'ajOzuBu', 'categoria': 'Local', 'pais': 'Mexico', 'city': 'Ciudad de México-Distrito Federal', 'estado': True, 'user_created': '2022-03-05T21:09:05.869Z', 'user_modifed': '2022-03-05T21:09:05.869Z'}                                          -->
                                             <td>
                                                 <a href="{% url 'cliente:editarCliente' cliente.pk %}" class="btn btn-warning btn-circle btn-sm">
                                                     <i class="fas fa-pen"></i>
@@ -86,16 +87,18 @@
                                             
                                         </tr>
                                         {% endfor %}
-                                       
                                         
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
+                    
                     {% else %}                    
-                        <h1 class="h3 mb-2 text-gray-800">No existe {{cliente}}Clientes registrados </h1>
+                    <h1 class="h3 mb-2 text-gray-800">No existe {{cliente}}Clientes registrados </h1>
+                    <p>
+                        {{consulta}} 
+                    </p> 
                     {% endif %}
                 </div>
                 <!-- /.container-fluid -->

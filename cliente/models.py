@@ -12,8 +12,8 @@ class Category(models.Model):
         verbose_name_plural = 'Categorías'
         ordering = ['name_category']
 
-    # def natural_key(self):
-    #     return f'{self.nombre} {self.apellidos}'
+    def natural_key(self):
+        return f'{self.name_category}'
 
     def __str__(self):
         return self.name_category
@@ -29,11 +29,15 @@ class Pais(models.Model):
         verbose_name_plural = 'Países'
         ordering = ['name_pais']
 
-    # def natural_key(self):
-    #     return f'{self.nombre} {self.apellidos}'
+    def natural_key(self):
+        return f'{self.name_pais}'
 
     def __str__(self):
         return self.name_pais
+
+class CityManager(models.Manager):
+    def get_by_natural_key(self, name_city):
+        return self.get(name_city=name_city)
 
 class City(models.Model):
 
@@ -42,16 +46,19 @@ class City(models.Model):
     ciudad_created=models.DateTimeField('Fecha de creación',auto_now_add=True)
     ciudad_modifed=models.DateTimeField('Fecha de actualización',auto_now=True)
 
+    objects = CityManager()
+
     class Meta:
         verbose_name = 'Ciudad'
         verbose_name_plural = 'Ciudades'
         # ordering = ['name_pais']
 
-    # def natural_key(self):
-    #     return f'{self.nombre} {self.apellidos}'
+    def natural_key(self):
+        return f'{self.name_city}'
 
     def __str__(self):
         return self.name_city
+
 
 
 class Cliente(models.Model):
@@ -62,8 +69,7 @@ class Cliente(models.Model):
     city=models.ForeignKey(City,on_delete=models.CASCADE)
     estado =models.BooleanField(default=True)
     user_created=models.DateTimeField('Fecha de creación',auto_now_add=True)
-    user_modifed=models.DateTimeField('Fecha de actualización',auto_now=True)
-         
+    user_modifed=models.DateTimeField('Fecha de actualización',auto_now=True)    
 
     
     class Meta:
@@ -72,7 +78,7 @@ class Cliente(models.Model):
         ordering = ['name_cliente']
 
     # def natural_key(self):
-    #     return f'{self.nombre} {self.apellidos}'
+    #     return (self.categoria,self.pais,self.city)
 
     def __str__(self):
         return self.name_cliente

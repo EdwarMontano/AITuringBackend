@@ -13,8 +13,6 @@
     <div id="wrapper">
 
         {% include "sidebar_part.html" %}
-
-
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -22,16 +20,11 @@
             <div id="content">
 
             {% include "topbar_part.html" %}
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    
-                    <h1 class="h3 mb-0 text-gray-800">Bienvenido a la prueba Técnica para AIturing</h1>
-                     
-
-                    
+                    <h1 class="h3 mb-4 text-gray-800">Se crearon {{num_clientes}} clientes aleatoriamente </h1>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -40,7 +33,6 @@
             <!-- End of Main Content -->
 
           {% include "footer_part.html" %}
-
 
         </div>
         <!-- End of Content Wrapper -->
@@ -54,13 +46,6 @@
     </a>
 
     {% include "modals_and_scripts_part.html" %}
-
-    <!-- Page level plugins -->
-    <script src="/static/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/static/js/demo/chart-area-demo.js"></script>
-    <script src="/static/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

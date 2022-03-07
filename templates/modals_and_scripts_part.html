@@ -18,6 +18,34 @@
         </div>
     </div>
 
+    <div class="modal fade" id="poblarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿desea poblar la base de datos?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="cantidadForm" action="/cliente/poblarClientes/" method="GET">
+                        <!-- {% csrf_token %}  -->
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Ingrese un número entero:</label>
+                          <input type="number" class="form-control" id="cantidad" min="0" max="5000" name="cantidad">
+                        </div>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-primary"></button>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <a class="btn btn-primary" href="/cliente/poblarClientes/">Crear clientes</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="/static/vendor/jquery/jquery.min.js"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

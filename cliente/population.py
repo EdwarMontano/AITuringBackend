@@ -104,8 +104,7 @@ def generate_autor(count):
             categoria_id=random_category,
             city_id=random_city,
         )
-def poblarMasivo(cantidad):  
-    
+def poblarMasivo(cantidad):      
     if len(list(Category.objects.all()))==0:
         generate_category()
     if len(list(Pais.objects.all()))==0:
@@ -123,32 +122,7 @@ def poblarMasivo(cantidad):
                 print('Ingresa una valor entre 1 y 2000 ')
 
     generate_autor(cantidad)
+    return
     
-if __name__ == "__main__":
-    print("Inicio de creación de población")
-    print("Por favor espere . . . ")
-    start = time.strftime("%c")
-    print(f'Fecha y hora de inicio: {start}')
-    # print(list(City.objects.filter(pais_id=3)))
-    if len(list(Category.objects.all()))==0:
-        generate_category()
-    if len(list(Pais.objects.all()))==0:
-        generate_contry()
-    if len(list(City.objects.all()))==0:
-        created_city()
-    while True:
-            try:
-                registros = int(input('Ingrese el número de clientes a crear: '))
-                assert(1<=registros<=2000)
-                
-                break
-            except ValueError:
-                print('Ingresa un valor entero--> ejemplo: 3')
-            except AssertionError:
-                print('Ingresa una valor entre 1 y 2000 ')
-
-    generate_autor(registros)
-    end = time.strftime("%c")
-    print(f'Fecha y hora de finalización: {end}')
 
 
