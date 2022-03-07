@@ -7,6 +7,7 @@ from django.http import HttpResponse,JsonResponse
 from django.views.generic import View,TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from django.core.serializers import serialize
+from django.contrib.auth.decorators import login_required
 
 from cliente.forms import ClienteForm
 from .models import *
@@ -56,6 +57,70 @@ class EliminarCliente(DeleteView):
         object.save()
         return redirect('cliente:listarCliente')
 
+class ExportCliente(TemplateView):
+    model = Cliente
+    template_name ='exportCliente.html'
+    
+
+@login_required
+def exportDataAllCliente(request):  
+    clientesjson = json.loads(serialize('json', Cliente.objects.filter(estado=True),use_natural_foreign_keys = True))
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['pk','nombre de cliente','categoria','pais','city','estado'])
+
+    for fila in clientesjson:
+        texto = [str(fila["pk"]), fila["fields"]["name_cliente"], fila["fields"]["categoria"], fila["fields"]["pais"],fila["fields"]["city"],str(fila["fields"]["estado"])]
+        # import pdb; pdb.set_trace()
+        writer.writerow(texto)
+    response['Content-Disposition']= 'attachment; filename="clientes.csv"'
+
+    return response
+
+@login_required
+def exportDataCountryColombia(request):  
+    clientesjson = json.loads(serialize('json', Cliente.objects.filter(pais='1'),use_natural_foreign_keys = True))
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['pk','nombre de cliente','categoria','pais','city','estado'])
+
+    for fila in clientesjson:
+        texto = [str(fila["pk"]), fila["fields"]["name_cliente"], fila["fields"]["categoria"], fila["fields"]["pais"],fila["fields"]["city"],str(fila["fields"]["estado"])]
+        # import pdb; pdb.set_trace()
+        writer.writerow(texto)
+    response['Content-Disposition']= 'attachment; filename="clientesColombia.csv"'
+
+    return response
+@login_required
+def exportDataCountryMexico(request):  
+    clientesjson = json.loads(serialize('json', Cliente.objects.filter(pais='2'),use_natural_foreign_keys = True))
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['pk','nombre de cliente','categoria','pais','city','estado'])
+
+    for fila in clientesjson:
+        texto = [str(fila["pk"]), fila["fields"]["name_cliente"], fila["fields"]["categoria"], fila["fields"]["pais"],fila["fields"]["city"],str(fila["fields"]["estado"])]
+        # import pdb; pdb.set_trace()
+        writer.writerow(texto)
+    response['Content-Disposition']= 'attachment; filename="clientesMexico.csv"'
+
+    return response
+
+    
+@login_required
+def exportDataCountryVenezuela(request):  
+    clientesjson = json.loads(serialize('json', Cliente.objects.filter(pais='3'),use_natural_foreign_keys = True))
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['pk','nombre de cliente','categoria','pais','city','estado'])
+
+    for fila in clientesjson:
+        texto = [str(fila["pk"]), fila["fields"]["name_cliente"], fila["fields"]["categoria"], fila["fields"]["pais"],fila["fields"]["city"],str(fila["fields"]["estado"])]
+        # import pdb; pdb.set_trace()
+        writer.writerow(texto)
+    response['Content-Disposition']= 'attachment; filename="clientesVenezuela.csv"'
+
+    return response
 
 def graficasCliente(request):    
     return render(request,'charts.html')
@@ -79,19 +144,6 @@ def crearClienteIndividual(request):
         cliente_form = ClienteForm()            
     return render(request,'crearCliente.html',{'cliente_form':cliente_form})
 
-def exportDataAllCliente(request):  
-    clientesjson = json.loads(serialize('json', Cliente.objects.filter(estado=True),use_natural_foreign_keys = True))
-    response = HttpResponse(content_type='text/csv')
-    writer = csv.writer(response)
-    writer.writerow(['pk','nombre de cliente','categoria','pais','city','estado'])
-
-    for fila in clientesjson:
-        texto = str(fila["pk"])+','+ fila["fields"]["name_cliente"]+','+fila["fields"]["categoria"]+','+ fila["fields"]["pais"]+','+fila["fields"]["city"]+','+str(fila["fields"]["estado"])
-        # import pdb; pdb.set_trace()
-        writer.writerow(texto)
-    response['Content-Disposition']= 'attachment; filename="clientes.csv"'
-
-    return response
 
 
 

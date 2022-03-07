@@ -10,9 +10,13 @@ urlpatterns = [
     path('crearCliente/',   login_required(CrearCliente.as_view()), name = 'crearcliente'),
     path('editarCliente/<int:pk>',  login_required(EditarCliente.as_view()), name = 'editarCliente'),
     path('eliminarCliente/<int:pk>',  login_required(EliminarCliente.as_view()) , name = 'eliminarCliente'),
+    path('exportcliente/',   login_required(ExportCliente.as_view()), name = 'export'),
 
     path('graphClientes/',  graficasCliente, name = 'graphcliente'),
     path('poblarClientes/', crearClienteMasivo , name = 'populationCliente'),
-    path('exportClientes/', exportDataAllCliente , name = 'export')
+    path('exportclientes-all/', exportDataAllCliente , name = 'export'),
+    path('exportclienttes-colombia/', exportDataCountryColombia , name = 'exportcolombia'),
+    path('exportclienttes-Mexico/', exportDataCountryMexico , name = 'exportmexico'),
+    path('exportclienttes-venezuela/', exportDataCountryVenezuela , name = 'exportvenezuela')
     
 ] 
