@@ -60,7 +60,7 @@ class Cliente(models.Model):
     categoria=models.ForeignKey(Category,on_delete=models.CASCADE)
     pais=models.ForeignKey(Pais,on_delete=models.CASCADE)
     city=models.ForeignKey(City,on_delete=models.CASCADE)
-    is_admin =models.BooleanField(default=False)
+    estado =models.BooleanField(default=True)
     user_created=models.DateTimeField('Fecha de creación',auto_now_add=True)
     user_modifed=models.DateTimeField('Fecha de actualización',auto_now=True)
          

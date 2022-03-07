@@ -24,23 +24,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Formulario</h1>
-
-
-                    <form id="form_creacion"  method="POST">
-                        {% csrf_token %} 
-                        <div class="modal-body">
-                            <div id="errores">
-                                
-                            </div>
-                            {{form.as_p}}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Registrar</button>
-                            <button type="reset" class="btn btn-danger">Cancelar</button>
-                        </div>
-
-                        
+                    <form method="post">
+                        {% csrf_token %}
+                        <p><strong>¿Desea eliminar el registro {{ object }}?</strong></p>
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </form>
 
 
                 </div>

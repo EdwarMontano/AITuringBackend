@@ -125,7 +125,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Individual:</h6>
-                        <a class="collapse-item {% if filename == "login" %}active{% endif %}" href="/cliente/crearCliente/">Cliente</a>
+                        <a class="collapse-item {% if filename == "login" %}active{% endif %}" href="{% url 'cliente:crearcliente'  %}">Cliente</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Creación Masiva:</h6>
                         <a class="collapse-item {% if filename == "blank" %}active{% endif %}" href="/cliente/poblarClientes/">Poblar base de datos</a>
@@ -135,7 +135,7 @@
 
              <!-- Nav Item - Tables -->
              <li class="nav-item {% if filename == "tables" %}active{% endif %}">
-                <a class="nav-link" href="/cliente/tableClientes/">
+                <a class="nav-link" href="/cliente/listado/">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tabla de Clientes</span></a>
             </li>    

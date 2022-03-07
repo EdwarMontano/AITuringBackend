@@ -1,14 +1,45 @@
 import json
-
 from time import time
+
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
-from .forms import ClienteForm
+from django.views.generic import View,TemplateView, ListView, UpdateView, CreateView, DeleteView
+from django.urls import reverse_lazy
+
+from cliente.forms import ClienteForm
+from .models import *
 
 
-# Create your views here.
-def HomeCliente(request):    
-    return render(request,'tables.html')
+
+class ListadoCliente(ListView):
+    model = Cliente
+    template_name ='tables.html'
+    context_object_name = 'clientes'
+    queryset= Cliente.objects.filter(estado=True)
+
+
+class EditarCliente(UpdateView):
+    model = Cliente
+    template_name ='crearCliente.html'
+    form_class= ClienteForm
+    success_url = reverse_lazy('cliente:listarCliente')
+
+class CrearCliente(CreateView):
+    model = Cliente
+    template_name ='crearCliente.html'
+    form_class= ClienteForm
+    success_url = reverse_lazy('cliente:listarCliente')
+
+class EliminarCliente(DeleteView):
+    model = Cliente       
+    
+    def post(self,request,pk,*args,**kwargs):
+        object = Cliente.objects.get(pk=pk)
+        object.estado = False
+        object.save()
+        return redirect('cliente:listarCliente')
+
+
 
 def graficasCliente(request):    
     return render(request,'charts.html')
@@ -25,5 +56,12 @@ def crearClienteIndividual(request):
     else:
         cliente_form = ClienteForm()            
     return render(request,'crearCliente.html',{'cliente_form':cliente_form})
+
+
+
+# def listarcliente(request):    
+#     clientes=Cliente.objects.all()    
+#     # import pdb; pdb.set_trace()
+#     return render(request,'tables.html',{'clientes':clientes})
 
 

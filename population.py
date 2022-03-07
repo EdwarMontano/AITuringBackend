@@ -57,7 +57,7 @@ def generate_contry():
         Pais.objects.create(name_pais=countries)    
 
 def created_city():
-    cityCOL = ['Bogota-Cundinamarcar', 'Cali-Valle','Medellín-Antioquia','Barranquilla-Atlántico','Cartagena-Bolívar','Cúcuta-Norte deSantander',
+    cityCOL = ['Bogota-Cundinamarca', 'Cali-Valle','Medellín-Antioquia','Barranquilla-Atlántico','Cartagena-Bolívar','Cúcuta-Norte deSantander',
     'Bucaramanga-Santander','Ibagué-Tolima','Pereira-Risaralda','Santa Martha-Magdalena','Manizales-Caldas']
     cityMEX=['Ciudad de México-Distrito Federal','Ecatepec de Morelos-México','Naucalpan de Juárez-México','Tijuana-Baja California',
     'Nezahualcóyotl-México','Monterrey-Nuevo León','Guadalajara-Jalisco','Juárez-Chihuahua','León-Guanajuato','Zapopan-Jalisco','Puebla-Puebla']
@@ -94,7 +94,7 @@ def generate_autor(count):
         random_category = rd.randint(1, 3)
         random_country = num_random_contry
         random_city = generate_city(num_random_contry)
-        print(type(random_category))
+        # print(type(random_category))
 
         
 
@@ -118,8 +118,18 @@ if __name__ == "__main__":
         generate_contry()
     if len(list(City.objects.all()))==0:
         created_city()
+    while True:
+            try:
+                registros = int(input('Ingrese el número de clientes a crear: '))
+                assert(1<=registros<=2000)
+                
+                break
+            except ValueError:
+                print('Ingresa un valor entero--> ejemplo: 3')
+            except AssertionError:
+                print('Ingresa una valor entre 1 y 2000 ')
 
-    generate_autor(2)
+    generate_autor(registros)
     end = time.strftime("%c")
     print(f'Fecha y hora de finalización: {end}')
 

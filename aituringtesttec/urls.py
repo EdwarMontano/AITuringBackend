@@ -13,27 +13,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from datetime import datetime
+
 from django.contrib import admin
 from django.urls import path,include
-
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
+# from django.contrib.auth import login,logout
+# from django.contrib.auth.decorators import login_required
 
-from aituringtesttec import views as local_views
+from .views import *
 
 # from apps.clientes import views as clientes_views
-
-from datetime import datetime
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cliente/',include(('cliente.urls','cliente'))),
+    path('',login_required(Inicio.as_view()), name = 'index'),
 
-    path('',local_views.pageHome, name = 'index'),
-    path('home/',local_views.pageHome, name = 'home'),
-    path('pagenotfound/',local_views.pageNoFound, name = 'page404'),
-    path('blank/',local_views.pageBlank, name = 'pageblank'),
+    path('accounts/',include('django.contrib.auth.urls')),
+    path('salir/', salir, name = 'salir'),
+    # path('accounts/login/', auth_views.LoginView.as_view()),
+
+
+    # path('accounts/login',login,{'template_name': 'login.html'}, name = 'login'),
+    # path('logout/',logout, name = 'logout'),
+
+    path('pagenotfound/',pageNoFound, name = 'page404'),
+    path('blank/',pageBlank, name = 'pageblank'),
     
 ] +  static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 # static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
