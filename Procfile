@@ -1,1 +1,1 @@
-web: gunicorn aituringtesttec.wsgi --log-file -
+web: python manage.py migrate && gunicorn aituringtesttec.wsgi
