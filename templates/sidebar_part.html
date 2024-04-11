@@ -1,80 +1,79 @@
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Aituring <sup>2022</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <!-- <li class="nav-item {% if filename == "index" %}active{% endif %}">
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+    id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+       href="/">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">
+            Aituring <sup>2022</sup>
+        </div>
+    </a>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+    <!-- Nav Item - Dashboard -->
+    <!-- <li class="nav-item {% if filename == "index" %}active{% endif %}">
                 <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-            </li> -->
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">           
-            
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Clientes
+</li> -->
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">Clientes</div>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {% if collapse == "pages" %}active{% endif %}">
+        <a class="nav-link"
+           href="#"
+           data-toggle="collapse"
+           data-target="#collapsePages2"
+           aria-expanded="true"
+           aria-controls="collapsePages2">
+            <i class="fas fa-fw fa-plus"></i>
+            <span>Crear Clientes</span>
+        </a>
+        <div id="collapsePages2"
+             class="collapse  {% if collapse == "pages" %}show{% endif %}"
+             aria-labelledby="headingPages"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Individual:</h6>
+                <a class="collapse-item {% if filename == "login" %}active{% endif %}"
+                   href="{% url 'cliente:crearcliente' %}">Cliente</a>
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Creación Masiva:</h6>
+                <a class="collapse-item {% if filename == "blank" %}active{% endif %}"
+                   href="#"
+                   data-toggle="modal"
+                   data-target="#poblarModal">Poblar base de datos</a>
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {% if collapse == "pages" %}active{% endif %}">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true"
-                    aria-controls="collapsePages2">
-                    <i class="fas fa-fw fa-plus"></i>
-                    <span>Crear Clientes</span>
-                </a>
-                <div id="collapsePages2" class="collapse  {% if collapse == "pages" %}show{% endif %}" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Individual:</h6>
-                        <a class="collapse-item {% if filename == "login" %}active{% endif %}" href="{% url 'cliente:crearcliente'  %}">Cliente</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Creación Masiva:</h6>
-                        <a class="collapse-item {% if filename == "blank" %}active{% endif %}" href="#" data-toggle="modal" data-target="#poblarModal">Poblar base de datos</a>
-                    </div>
-                </div>
-            </li>
-
-             <!-- Nav Item - Tables -->
-             <li class="nav-item {% if filename == "tables" %}active{% endif %}">
-                <a class="nav-link" href="/cliente/listado/">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tabla de Clientes</span></a>
-            </li>    
-             <!-- Nav Item - Tables -->
-             <li class="nav-item {% if filename == "tables" %}active{% endif %}">
-                <a class="nav-link" href="/cliente/exportcliente/">
-                    <i class="fas fa-fw fa-download"></i>
-                    <span>Exportar</span></a>
-            </li>    
-            
-            <!-- Nav Item - Charts -->
-            <!-- <li class="nav-item {% if filename == "charts" %}active{% endif %}">
+        </div>
+    </li>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {% if filename == "tables" %}active{% endif %}">
+        <a class="nav-link" href="/cliente/listado/">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tabla de Clientes</span></a>
+    </li>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item {% if filename == "tables" %}active{% endif %}">
+        <a class="nav-link" href="/cliente/exportcliente/">
+            <i class="fas fa-fw fa-download"></i>
+            <span>Exportar</span></a>
+    </li>
+    <!-- Nav Item - Charts -->
+    <!-- <li class="nav-item {% if filename == "charts" %}active{% endif %}">
                 <a class="nav-link " href="/cliente/graphClientes/">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Gráficas</span></a>
-            </li> -->
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
+</li> -->
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>
+<!-- End of Sidebar -->

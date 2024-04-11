@@ -1,3 +1,14 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+local_settings.py
+media
+staticfiles/
+node_modules/
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,visualstudiocode,pycharm,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,visualstudiocode,pycharm,python
 
