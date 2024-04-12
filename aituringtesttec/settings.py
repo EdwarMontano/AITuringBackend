@@ -1,26 +1,45 @@
+import logging
 import os
-from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse_lazy
 
 from environ import Env
 
-env = Env()
-env.read_env(env.str("ENV_PATH", ".env"))
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+logger = logging.getLogger("custom_logger")
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+logger.info(f"{BASE_DIR}")
+try:
+    env = Env()
+    env.read_env(os.path.join(BASE_DIR, ".env"))
+    ENVIRONMENT = env("ENVIRONMENT")
+except ImproperlyConfigured as e:
+    logger.error(e)
+    ENVIRONMENT = os.getenv("ENVIRONMENT")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY", default="secretkey")
+logger.info(f"Environment:{ENVIRONMENT}")
+if ENVIRONMENT == "production":
+    DEBUG = False
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    PGUSER = os.getenv("PGUSER")
+    PGHOST = os.getenv("PGHOST")
+    PGPORT = os.getenv("PGPORT")
+    PGDATABASE = os.getenv("PGDATABASE")
+    PGPASSWORD = os.getenv("PGPASSWORD")
+else:
+    DEBUG = True
+    SECRET_KEY = env("SECRET_KEY")
+    PGUSER = env("PGUSER")
+    PGHOST = env("PGHOST")
+    PGPORT = env("PGPORT")
+    PGDATABASE = env("PGDATABASE")
+    PGPASSWORD = env("PGPASSWORD")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -69,25 +88,14 @@ TEMPLATES = [
 WSGI_APPLICATION = "aituringtesttec.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": str(env("PGDATABASE", default=os.environ["PGDATABASE"])),
-        "USER": env("PGUSER", default=os.environ["PGUSER"]),
-        "PASSWORD": env("PGPASSWORD", default=os.environ["PGPASSWORD"]),
-        "HOST": env("PGHOST", default=os.environ["PGHOST"]),
-        "PORT": env("PGPORT", default=os.environ["PGPORT"]),
+        "NAME": PGDATABASE,
+        "USER": PGUSER,
+        "HOST": PGHOST,
+        "PORT": PGPORT,
+        "PASSWORD": PGPASSWORD,
     }
 }
 
