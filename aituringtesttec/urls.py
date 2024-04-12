@@ -30,7 +30,7 @@ from .views import *
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("cliente/", include(("cliente.urls", "cliente"))),
-    path("", login_required(Inicio.as_view()), name="index"),
+    path("/", login_required(Inicio.as_view()), name="index"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("salir/", salir, name="salir"),
     # path('accounts/login/', auth_views.LoginView.as_view()),
