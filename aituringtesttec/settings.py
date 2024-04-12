@@ -79,14 +79,15 @@ WSGI_APPLICATION = "aituringtesttec.wsgi.application"
 #     }
 # }
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env("PGDATABASE", default="main"),
-        "USER": env("PGUSER", default="username"),
-        "PASSWORD": env("PGPASSWORD", default="mypassword"),
-        "HOST": env("PGHOST", default="localhost"),
-        "PORT": env("PGPORT", default="5432"),
+        "NAME": str(env("PGDATABASE", default=os.environ["PGDATABASE"])),
+        "USER": env("PGUSER", default=os.environ["PGUSER"]),
+        "PASSWORD": env("PGPASSWORD", default=os.environ["PGPASSWORD"]),
+        "HOST": env("PGHOST", default=os.environ["PGHOST"]),
+        "PORT": env("PGPORT", default=os.environ["PGPORT"]),
     }
 }
 
