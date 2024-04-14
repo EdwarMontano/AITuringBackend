@@ -10,6 +10,7 @@ logger = logging.getLogger("custom_logger")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 logger.info(f"{BASE_DIR}")
+
 try:
     env = Env()
     env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -19,10 +20,12 @@ except ImproperlyConfigured as e:
     ENVIRONMENT = os.getenv("ENVIRONMENT")
 
 logger.info(f"Environment:{ENVIRONMENT}")
+
 if ENVIRONMENT == "production":
     DEBUG = False
     SECRET_KEY = os.getenv("SECRET_KEY")
-    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
+    allowed_hosts_raw = os.getenv("ALLOWED_HOSTS")
+    ALLOWED_HOSTS = allowed_hosts_raw.split(",") if allowed_hosts_raw else ["localhost"]
     PGUSER = os.getenv("PGUSER")
     PGHOST = os.getenv("PGHOST")
     PGPORT = os.getenv("PGPORT")
@@ -31,20 +34,17 @@ if ENVIRONMENT == "production":
 else:
     DEBUG = True
     SECRET_KEY = env("SECRET_KEY")
-    ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS", default=[]))
+    ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS"))
     PGUSER = env("PGUSER")
     PGHOST = env("PGHOST")
     PGPORT = env("PGPORT")
     PGDATABASE = env("PGDATABASE")
     PGPASSWORD = env("PGPASSWORD")
 
-# SECURITY WARNING: don't run with debug turned on in production!
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "aituringbackend-production.up.railway.app"]
 CSRF_TRUSTED_ORIGINS = ["http://*", "https://aituringbackend-production.up.railway.app"]
 
-
-# Application definition
 
 INSTALLED_APPS = [
     # Django apps
@@ -103,9 +103,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -121,29 +118,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = "es-co"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
 LOGIN_REDIRECT_URL = reverse_lazy("index")
 LOGOUT_REDIRECT_URL = reverse_lazy("login")
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
