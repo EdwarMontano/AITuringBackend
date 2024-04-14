@@ -22,7 +22,7 @@ logger.info(f"Environment:{ENVIRONMENT}")
 if ENVIRONMENT == "production":
     DEBUG = False
     SECRET_KEY = os.getenv("SECRET_KEY")
-    ALLOWED_HOSTS = tuple(os.getenv("ALLOWED_HOSTS"))
+    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
     PGUSER = os.getenv("PGUSER")
     PGHOST = os.getenv("PGHOST")
     PGPORT = os.getenv("PGPORT")
@@ -40,7 +40,7 @@ else:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "aituringbackend-production.up.railway.app"]
 CSRF_TRUSTED_ORIGINS = ["http://*", "https://aituringbackend-production.up.railway.app"]
 
 
