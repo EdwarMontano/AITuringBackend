@@ -22,6 +22,7 @@ logger.info(f"Environment:{ENVIRONMENT}")
 if ENVIRONMENT == "production":
     DEBUG = False
     SECRET_KEY = os.getenv("SECRET_KEY")
+    ALLOWED_HOSTS = tuple(os.getenv("ALLOWED_HOSTS"))
     PGUSER = os.getenv("PGUSER")
     PGHOST = os.getenv("PGHOST")
     PGPORT = os.getenv("PGPORT")
@@ -30,6 +31,7 @@ if ENVIRONMENT == "production":
 else:
     DEBUG = True
     SECRET_KEY = env("SECRET_KEY")
+    ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS", default=[]))
     PGUSER = env("PGUSER")
     PGHOST = env("PGHOST")
     PGPORT = env("PGPORT")
@@ -39,7 +41,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = ["localhost", "aituringbackend-production.up.railway.app"]
+# ALLOWED_HOSTS = ["localhost", "127.0.0.1", "aituringbackend-production.up.railway.app"]
 CSRF_TRUSTED_ORIGINS = ["http://*", "https://aituringbackend-production.up.railway.app"]
 
 
@@ -92,7 +94,7 @@ WSGI_APPLICATION = "aituringtesttec.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": PGDATABASE,
         "USER": PGUSER,
         "HOST": PGHOST,

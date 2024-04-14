@@ -1,5 +1,5 @@
 # AITuringBackend
-https://testtechnical-aituring.herokuapp.com/
+https://aituringbackend-production.up.railway.app/
 
 user: aituringUserTest
 password: %v!du0NxH4y4
