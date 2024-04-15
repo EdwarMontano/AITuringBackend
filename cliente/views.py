@@ -16,7 +16,7 @@ from django.views.generic import (
 from .models import Cliente
 
 from cliente.forms import ClienteForm
-from population import poblarMasivo
+from utils.population import poblarMasivo
 
 # from .population import *
 
@@ -180,12 +180,14 @@ def graficasCliente(request):
 
 
 def crearClienteMasivo(request):
-    print(request.GET)
     if request.method == "GET":
-        # print(request.GET['cantidad'])
         num_clientes = int(request.GET["cantidad"])
-        poblarMasivo(num_clientes)
-        return render(request, "cliente_Masivo.html", {"num_clientes": num_clientes})
+        response_masivo = poblarMasivo(num_clientes)
+        print("Voy 4")
+        print("SOy response;", response_masivo)
+        return render(
+            request, "cliente_Masivo.html", {"response_masivo": response_masivo}
+        )
 
 
 def crearClienteIndividual(request):

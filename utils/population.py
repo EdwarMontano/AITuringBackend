@@ -1,3 +1,4 @@
+import logging
 import os
 import random as rd
 import string
@@ -5,10 +6,12 @@ import time as time
 
 import django
 
-from cliente.models import Category, City, Cliente, Pais
 from faker import Faker
 
+from cliente.models import Category, City, Cliente, Pais
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aituringtesttec.settings")
+logger = logging.getLogger("custom_logger")
 
 django.setup()
 
@@ -104,18 +107,22 @@ def generate_autor(count):
         # random_user = generate_string(generate_number())
         num_random_country = rd.randint(1, 3)
         random_name = generate_string()
-        print(random_name)
         random_category = rd.randint(1, 3)
         random_country = num_random_country
         random_city = generate_city(num_random_country)
-        # print(type(random_category))
-
-        Cliente.objects.create(
-            name_cliente=random_name,
-            pais_id=random_country,
-            categoria_id=random_category,
-            city_id=random_city,
-        )
+        try:
+            Cliente.objects.create(
+                name_cliente=random_name,
+                pais_id=random_country,
+                categoria_id=random_category,
+                city_id=random_city,
+            )
+        except Exception as e:
+            message = f"Error: {e}"
+            logger.error(message)
+            print("Voy 2")
+            return message
+    return "Clientes creados exitosamente."
 
 
 def poblarMasivo(cantidad):
@@ -134,6 +141,6 @@ def poblarMasivo(cantidad):
             print("Ingresa un valor entero--> ejemplo: 3")
         except AssertionError:
             print("Ingresa una valor entre 1 y 2000 ")
-
-    generate_autor(cantidad)
-    return
+    message_response = generate_autor(cantidad)
+    logger.info(message_response)
+    return message_response
