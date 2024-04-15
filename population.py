@@ -1,14 +1,14 @@
 import os
-import time as time
-import django
 import random as rd
+import time as time
 
+import django
+
+from cliente.models import Category, City, Cliente, Pais
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aituringtesttec.settings")
 
 django.setup()
-
-from cliente.models import Cliente, Pais, Category, City
 
 
 vocals = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]

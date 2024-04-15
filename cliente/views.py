@@ -1,21 +1,24 @@
 import csv
 import json
 
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.core.serializers import serialize
 from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import (
-    TemplateView,
-    UpdateView,
     CreateView,
     DeleteView,
+    TemplateView,
+    UpdateView,
 )
-from django.urls import reverse_lazy
-from django.core.serializers import serialize
-from django.contrib.auth.decorators import login_required
+
+from .models import Cliente
 
 from cliente.forms import ClienteForm
-from .models import *
-from .population import *
+from population import poblarMasivo
+
+# from .population import *
 
 
 class ListadoCliente(TemplateView):

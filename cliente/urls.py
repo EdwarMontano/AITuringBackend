@@ -1,6 +1,20 @@
-from django.urls import path
-from .views import *
 from django.contrib.auth.decorators import login_required
+from django.urls import path
+
+from .views import (
+    CrearCliente,
+    EditarCliente,
+    EliminarCliente,
+    ExportCliente,
+    ListadoCliente,
+    crearClienteMasivo,
+    exportDataAllCliente,
+    exportDataCountryColombia,
+    exportDataCountryMexico,
+    exportDataCountryVenezuela,
+    graficasCliente,
+)
+
 # from .formsets import FormsetAutor
 
 urlpatterns = [
