@@ -103,7 +103,7 @@ def generate_city(country_id):
 
 def generate_autor(count):
     for j in range(count):
-        print(f"Generando cliente #{j} . . .")
+        logger.info(f"Generando cliente #{j} . . .")
         # random_user = generate_string(generate_number())
         num_random_country = rd.randint(1, 3)
         random_name = generate_string()
@@ -120,7 +120,6 @@ def generate_autor(count):
         except Exception as e:
             message = f"Error: {e}"
             logger.error(message)
-            print("Voy 2")
             return message
     return "Clientes creados exitosamente."
 
@@ -138,9 +137,9 @@ def poblarMasivo(cantidad):
 
             break
         except ValueError:
-            print("Ingresa un valor entero--> ejemplo: 3")
+            logger.info("Ingresa un valor entero--> ejemplo: 3")
         except AssertionError:
-            print("Ingresa una valor entre 1 y 2000 ")
+            logger.info("Ingresa una valor entre 1 y 2000 ")
     message_response = generate_autor(cantidad)
     logger.info(message_response)
     return message_response

@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 
-MAX_ENTRIES = 50
+MAX_ENTRIES = 100
 
 
 # Create your models here.
@@ -87,7 +87,6 @@ class Cliente(models.Model):
 
     def save(self, *args, **kwargs):
         if Cliente.objects.count() >= MAX_ENTRIES and not self.pk:
-            print("Voy 1")
             raise ValidationError(
                 f"No more than {MAX_ENTRIES} entries can be added to {self.__class__.__name__}."
             )

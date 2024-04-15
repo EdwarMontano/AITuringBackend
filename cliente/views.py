@@ -183,8 +183,6 @@ def crearClienteMasivo(request):
     if request.method == "GET":
         num_clientes = int(request.GET["cantidad"])
         response_masivo = poblarMasivo(num_clientes)
-        print("Voy 4")
-        print("SOy response;", response_masivo)
         return render(
             request, "cliente_Masivo.html", {"response_masivo": response_masivo}
         )
