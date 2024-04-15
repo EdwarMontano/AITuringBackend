@@ -118,7 +118,7 @@ def generate_autor(count):
                 city_id=random_city,
             )
         except Exception as e:
-            message = f"Error Created a Client: {e}"
+            message = f"Error: Client Creation Failed -{e}"
             logger.error(message)
             return message
     return "Clientes creados exitosamente."

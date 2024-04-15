@@ -88,7 +88,7 @@ class Cliente(models.Model):
     def save(self, *args, **kwargs):
         if Cliente.objects.count() >= MAX_ENTRIES and not self.pk:
             raise ValidationError(
-                f"No more than {MAX_ENTRIES} entries can be added to {self.__class__.__name__}."
+                f"A maximum of {MAX_ENTRIES} entries can be added to {self.__class__.__name__}."
             )
 
         super(Cliente, self).save(*args, **kwargs)
