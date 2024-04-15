@@ -1,0 +1,3 @@
+INSERT INTO public.cliente_pais (name_pais,pais_created,pais_modifed) VALUES ('Colombia','2024-04-15 08:09:50.299 -0500','2024-04-15 08:09:50.299 -0500');
+INSERT INTO public.cliente_pais (name_pais,pais_created,pais_modifed) VALUES ('Mexico','2024-04-15 08:09:50.299 -0500','2024-04-15 08:09:50.299 -0500');
+INSERT INTO public.cliente_pais (name_pais,pais_created,pais_modifed) VALUES ('Venezuela','2024-04-15 08:09:50.299 -0500','2024-04-15 08:09:50.299 -0500');
