@@ -118,7 +118,7 @@ def generate_autor(count):
                 city_id=random_city,
             )
         except Exception as e:
-            message = f"Error: {e}"
+            message = f"Error Created a Client: {e}"
             logger.error(message)
             return message
     return "Clientes creados exitosamente."
@@ -137,7 +137,9 @@ def poblarMasivo(cantidad):
 
             break
         except ValueError:
-            logger.info("Ingresa un valor entero--> ejemplo: 3")
+            logger.info(
+                "Ingresa un valor entero--> ejemplo: 3"
+            )  # TODO: No funciona el mensaje tipo info
         except AssertionError:
             logger.info("Ingresa una valor entre 1 y 2000 ")
     message_response = generate_autor(cantidad)

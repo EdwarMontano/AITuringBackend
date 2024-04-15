@@ -175,10 +175,12 @@ def exportDataCountryVenezuela(request):
     return response
 
 
+@login_required
 def graficasCliente(request):
     return render(request, "charts.html")
 
 
+@login_required
 def crearClienteMasivo(request):
     if request.method == "GET":
         num_clientes = int(request.GET["cantidad"])
@@ -188,6 +190,7 @@ def crearClienteMasivo(request):
         )
 
 
+@login_required
 def crearClienteIndividual(request):
     if request.method == "POST":
         cliente_form = ClienteForm(request.POST)
