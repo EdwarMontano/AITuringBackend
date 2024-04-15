@@ -1,8 +1,11 @@
 import os
 import random as rd
+import string
 import time as time
 
 import django
+
+from faker import Faker
 
 from cliente.models import Category, City, Cliente, Pais
 
@@ -10,73 +13,14 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aituringtesttec.settings")
 
 django.setup()
 
-vocals = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
-consonants = [
-    "b",
-    "c",
-    "d",
-    "f",
-    "g",
-    "h",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "v",
-    "x",
-    "y",
-    "z",
-    "B",
-    "C",
-    "D",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "V",
-    "X",
-    "Y",
-    "Z",
-]
+vowels = list("aeiouAEIOU")
+consonants = [c for c in string.ascii_letters if c not in vowels]
+
+fake_es = Faker("es_ES")
 
 
-def generate_string(length):
-    if length <= 0:
-        return False
-
-    random_string = ""
-
-    for i in range(length):
-        decision = rd.choice(("vocals", "consonants"))
-
-        if random_string[-1:].lower() in vocals:
-            decision = "consonants"
-        if random_string[-1:].lower() in consonants:
-            decision = "vocals"
-
-        if decision == "vocals":
-            character = rd.choice(vocals)
-        else:
-            character = rd.choice(consonants)
-
-        random_string += character
-
-    return random_string
+def generate_string():
+    return fake_es.name()
 
 
 def generate_number():
@@ -90,8 +34,8 @@ def generate_category():
 
 
 def generate_contry():
-    contry = ["Colombia", "Mexico", "Venezuela"]
-    for countries in contry:
+    country = ["Colombia", "Mexico", "Venezuela"]
+    for countries in country:
         Pais.objects.create(name_pais=countries)
 
 
@@ -144,11 +88,11 @@ def created_city():
         City.objects.create(name_city=cities, pais_id=3)
 
 
-def generate_city(contrynum):
+def generate_city(country_id):
     # City.objects.filter(pais_id=1)
-    if contrynum == 1:
+    if country_id == 1:
         return rd.randint(1, 11)
-    elif contrynum == 2:
+    elif country_id == 2:
         return rd.randint(12, 22)
     else:
         return rd.randint(23, 33)
@@ -158,11 +102,12 @@ def generate_autor(count):
     for j in range(count):
         print(f"Generando cliente #{j} . . .")
         # random_user = generate_string(generate_number())
-        num_random_contry = rd.randint(1, 3)
-        random_name = generate_string(generate_number())
+        num_random_country = rd.randint(1, 3)
+        random_name = generate_string()
+        print(random_name)
         random_category = rd.randint(1, 3)
-        random_country = num_random_contry
-        random_city = generate_city(num_random_contry)
+        random_country = num_random_country
+        random_city = generate_city(num_random_country)
         # print(type(random_category))
 
         Cliente.objects.create(
@@ -174,11 +119,11 @@ def generate_autor(count):
 
 
 def poblarMasivo(cantidad):
-    if len(list(Category.objects.all())) == 0:
+    if not list(Category.objects.all()):
         generate_category()
-    if len(list(Pais.objects.all())) == 0:
+    if not list(Pais.objects.all()):
         generate_contry()
-    if len(list(City.objects.all())) == 0:
+    if not list(City.objects.all()):
         created_city()
     while True:
         try:

@@ -1,83 +1,26 @@
 import os
 import random as rd
+import string
 import time as time
 
 import django
 
 from cliente.models import Category, City, Cliente, Pais
+from faker import Faker
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aituringtesttec.settings")
 
 django.setup()
 
+vowels = list("aeiouAEIOU")
+consonants = [c for c in string.ascii_letters if c not in vowels]
 
-vocals = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
-consonants = [
-    "b",
-    "c",
-    "d",
-    "f",
-    "g",
-    "h",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "v",
-    "x",
-    "y",
-    "z",
-    "B",
-    "C",
-    "D",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "V",
-    "X",
-    "Y",
-    "Z",
-]
+# fake_es = Faker(["it_IT", "en_US", "ja_JP", "es_ES"])
+fake_es = Faker("es_ES")
 
 
-def generate_string(length):
-    if length <= 0:
-        return False
-
-    random_string = ""
-
-    for i in range(length):
-        decision = rd.choice(("vocals", "consonants"))
-
-        if random_string[-1:].lower() in vocals:
-            decision = "consonants"
-        if random_string[-1:].lower() in consonants:
-            decision = "vocals"
-
-        if decision == "vocals":
-            character = rd.choice(vocals)
-        else:
-            character = rd.choice(consonants)
-
-        random_string += character
-
-    return random_string
+def generate_string():
+    return fake_es.name()
 
 
 def generate_number():
@@ -91,8 +34,8 @@ def generate_category():
 
 
 def generate_contry():
-    contry = ["Colombia", "Mexico", "Venezuela"]
-    for countries in contry:
+    country = ["Colombia", "Mexico", "Venezuela"]
+    for countries in country:
         Pais.objects.create(name_pais=countries)
 
 
@@ -145,11 +88,11 @@ def created_city():
         City.objects.create(name_city=cities, pais_id=3)
 
 
-def generate_city(contrynum):
+def generate_city(country_id):
     # City.objects.filter(pais_id=1)
-    if contrynum == 1:
+    if country_id == 1:
         return rd.randint(1, 11)
-    elif contrynum == 2:
+    elif country_id == 2:
         return rd.randint(12, 22)
     else:
         return rd.randint(23, 33)
@@ -159,11 +102,12 @@ def generate_autor(count):
     for j in range(count):
         print(f"Generando cliente #{j} . . .")
         # random_user = generate_string(generate_number())
-        num_random_contry = rd.randint(1, 3)
-        random_name = generate_string(generate_number())
+        num_random_country = rd.randint(1, 3)
+        random_name = generate_string()
+        print(random_name)
         random_category = rd.randint(1, 3)
-        random_country = num_random_contry
-        random_city = generate_city(num_random_contry)
+        random_country = num_random_country
+        random_city = generate_city(num_random_country)
         # print(type(random_category))
 
         Cliente.objects.create(
@@ -175,11 +119,11 @@ def generate_autor(count):
 
 
 def poblarMasivo(cantidad):
-    if len(list(Category.objects.all())) == 0:
+    if not list(Category.objects.all()):
         generate_category()
-    if len(list(Pais.objects.all())) == 0:
+    if not list(Pais.objects.all()):
         generate_contry()
-    if len(list(City.objects.all())) == 0:
+    if not list(City.objects.all()):
         created_city()
     while True:
         try:
@@ -192,31 +136,4 @@ def poblarMasivo(cantidad):
             print("Ingresa una valor entre 1 y 2000 ")
 
     generate_autor(cantidad)
-
-
-if __name__ == "__main__":
-    print("Inicio de creación de población")
-    print("Por favor espere . . . ")
-    start = time.strftime("%c")
-    print(f"Fecha y hora de inicio: {start}")
-    # print(list(City.objects.filter(pais_id=3)))
-    if len(list(Category.objects.all())) == 0:
-        generate_category()
-    if len(list(Pais.objects.all())) == 0:
-        generate_contry()
-    if len(list(City.objects.all())) == 0:
-        created_city()
-    while True:
-        try:
-            registros = int(input("Ingrese el número de clientes a crear: "))
-            assert 1 <= registros <= 2000
-
-            break
-        except ValueError:
-            print("Ingresa un valor entero--> ejemplo: 3")
-        except AssertionError:
-            print("Ingresa una valor entre 1 y 2000 ")
-
-    generate_autor(registros)
-    end = time.strftime("%c")
-    print(f"Fecha y hora de finalización: {end}")
+    return
