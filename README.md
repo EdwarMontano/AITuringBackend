@@ -22,6 +22,7 @@ To install and run the AITuringBackend project locally, follow these steps:
 
   ```bash
   cd AITuringBackend
+  venv create
   pip install -r requirements.txt
   ```
 
