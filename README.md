@@ -22,7 +22,14 @@ To install and run the AITuringBackend project locally, follow these steps:
 
   ```bash
   cd AITuringBackend
-  venv create
+  poetry --version
+  poetry env info
+  poetry env use $(pyenv which python)
+  poetry env info # la version de python debe coincidir 
+  poetry shell 
+  poetry install
+  poetry show # dependencias instaladas == pip list
+  poetry add [dependecias]
   pip install -r requirements.txt
   ```
 
